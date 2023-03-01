@@ -2,15 +2,23 @@ using UnityEngine;
 
 public class HumanBehaviour : MonoBehaviour
 {
-    Human human;
+    Event update;
+    Event fixedUpdate;
 
     void Start()
     {
-        human = new Human(new UnityAnimator(GetComponent<Animator>()));
+        update = new Event();
+        fixedUpdate = new Event();
+
+        new Human(new UnityColliderFactory(gameObject, fixedUpdate), new UnityAnimator(GetComponent<Animator>()), update);
     }
 
     void Update()
     {
-        human.Update();
+        update.Call();
+    }
+    void FixedUpdate()
+    {
+        fixedUpdate.Call();
     }
 }
