@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class HumanBehaviour : MonoBehaviour
 {
+    [SerializeField] Joystick joystick;
     Event update;
     Event fixedUpdate;
 
@@ -11,6 +12,7 @@ public class HumanBehaviour : MonoBehaviour
         fixedUpdate = new Event();
 
         new Human(new UnityColliderFactory(gameObject, fixedUpdate), new UnityAnimator(GetComponent<Animator>()), update);
+        new UnityMoveSystem(joystick, transform, update);
     }
 
     void Update()
